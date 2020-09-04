@@ -9,7 +9,8 @@ using namespace std;
 enum class Op {
     Resize, 
     Resize_norm, 
-    Warp_norm
+    Warp_norm, 
+    Unknown
 };
 
 
@@ -19,7 +20,7 @@ void plain(T op) {
         cout << "Resize called!" << endl;
     }
     else if (op == Op::Resize_norm) {
-        cout << " Resize_norm called!" << endl;
+        cout << "Resize_norm called!" << endl;
     }
     else if (op == Op::Warp_norm) {
         cout << "Warp_norm called!" << endl;
@@ -27,6 +28,7 @@ void plain(T op) {
 }
 
 
+// improvement 
 template <typename T1, Op T>
 typename std::enable_if<T==Op::Resize>::type
 _do() {
@@ -47,13 +49,10 @@ _do() {
 
 
 
-
-
 template <typename T1, Op T2>
-void imp1() {
+void imp() {
     _do<T1, T2>();
 }
-
 
 
 
@@ -63,8 +62,12 @@ int main(int argc, char* argv[]) {
 
     plain(Op::Resize_norm);
 
-    imp1<int, Op::Warp_norm>();
-    imp1<float, Op::Resize_norm>();
+    imp<int, Op::Warp_norm>();
+    imp<float, Op::Resize_norm>();
+
+    //imp<float, Op::Unknown>(); // errors when compiled
+
+    //imp<float, float>(); // errors when compiled
 
 
     return 0;

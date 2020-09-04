@@ -25,6 +25,24 @@ constexpr size_t factorial2(size_t n) {
     return (n == 0) ? 1 : n * factorial2(n - 1);
 }
 
+size_t naive_fac(size_t n) {
+    if (n == 0) {
+        return 1;
+    } 
+    return n * naive_fac(n - 1);
+}
+
+// since C++17 
+template <size_t n>
+size_t fac() {
+    if constexpr( n == 0 ) {
+        return 1;
+    } else {
+        return n * fac<n-1>();
+    }
+}
+
+
 
 
 int main(int argc, char* argv[]) {
